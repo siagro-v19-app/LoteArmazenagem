@@ -1,0 +1,147 @@
+<mvc:View xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	controllerName="br.com.idxtecLoteArmazenagem.controller.GravarLote"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	height="100%"
+	width="100%"
+	xmlns:f="sap.ui.layout.form">
+	<App>
+		<pages>
+			<Page showHeader="false">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<Panel headerText="Lote Armazenagem">
+							<f:SimpleForm id="formLote"
+								editable="true"
+								layout="ResponsiveGridLayout"
+								labelSpanXL="4"
+								labelSpanL="4"
+								labelSpanM="4"
+								labelSpanS="12"
+								adjustLabelSpan="false"
+								emptySpanXL="0"
+								emptySpanL="0"
+								emptySpanM="0"
+								emptySpanS="0"
+								columnsXL="3"
+								columnsL="2"
+								columnsM="2"
+								singleContainerFullSize="false">
+								<f:content>
+									<core:Title text="{view>/titulo}"/>
+									<Label text="Descrição" labelFor="descricao"/>
+									<Input id="descricao" value="{model>/Descricao}" required="true"/>
+									
+									<Label text="Armazém" labelFor="armazem"/>
+									<Input selectedKey="{path: 'model>/Armazem',
+										type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchArmazem"
+										suggestionItems="{
+											path: '/LocalEstoques',
+											events: {
+												dataReceived: '.armazemReceived'
+											}}"
+										id="armazem"
+										required="true">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Descricao}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="Cliente" labelFor="cliente"/>
+									<Input selectedKey="{path: 'model>/Cliente',
+										type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchParceiro"
+										suggestionItems="{
+											path: '/ParceiroNegocios',
+											events: {
+												dataReceived: '.parceiroNegocioReceived'
+											}}"
+										id="cliente"
+										required="true">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{RazaoSocial}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="Tabela" labelFor="tabela"/>
+									<Input selectedKey="{path: 'model>/Tabela',
+										type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchTabela"
+										suggestionItems="{
+											path: '/TabelaTarifas',
+											events: {
+												dataReceived: '.tabelaReceived'
+											}}"
+										id="tabela"
+										required="true">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Descricao}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="Data" labelFor="data" required="true"/>
+									<DatePicker id="data" dateValue="{model>/Data}"
+										displayFormat="dd.MM.yyyy" placeholder="dd.mm.aaaa"/>
+									
+									<Label text="Produto" labelFor="produto"/>
+									<Input selectedKey="{path: 'model>/Produto',
+										type: 'sap.ui.model.odata.type.Int32'}"
+										textFormatMode="KeyValue"
+										showSuggestion="true"
+										showValueHelp="true"
+										valueHelpRequest="handleSearchProduto"
+										suggestionItems="{
+											path: '/Produtos',
+											events: {
+												dataReceived: '.produtoReceived'
+											}}"
+										id="produto"
+										required="true">
+										<suggestionItems>
+											<core:ListItem key="{Id}" text="{Descricao}"/>
+										</suggestionItems>
+									</Input>
+									
+									<Label text="Saldo" labelFor="saldo"/>
+									<Input id="saldo" value="{path: 'model>/Saldo', 
+											type: 'sap.ui.model.odata.type.Single',
+				                            formatOptions:{
+				                                decimals: 2,
+				                                decimalSeparator: ','
+				                            }}" required="true"/>
+				                            
+				                    <Label text="Referência Externa" labelFor="referencia"/>
+									<Input id="referencia" value="{model>/ReferenciaExterna}"/>
+									
+									<Label text="Observações" labelFor="obs"/>
+									<TextArea id="obs" value="{model>/Observacoes}" rows="6" cols="54"/>
+									
+									<Label text="Encerrado" labelFor="encerrado"/>
+									<CheckBox id="encerrado" selected="{model>/Encerrado}"/>
+								</f:content>
+							</f:SimpleForm>
+						</Panel> 
+					</VBox>
+				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://save" id="salvar" text="Salvar" press="onSalvar"/>
+						<Button icon="sap-icon://reset" id="voltar" text="Cancelar" press="onVoltar"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
