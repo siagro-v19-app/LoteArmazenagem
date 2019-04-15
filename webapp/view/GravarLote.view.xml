@@ -11,7 +11,7 @@
 			<Page showHeader="false">
 				<content>
 					<VBox class="sapUiSmallMargin">
-						<Panel headerText="Lote Armazenagem">
+						<Panel headerText="{view>/titulo}">
 							<f:SimpleForm id="formLote"
 								editable="true"
 								layout="ResponsiveGridLayout"
@@ -29,7 +29,6 @@
 								columnsM="2"
 								singleContainerFullSize="false">
 								<f:content>
-									<core:Title text="{view>/titulo}"/>
 									<Label text="Descrição" labelFor="descricao"/>
 									<Input id="descricao" value="{model>/Descricao}" required="true"/>
 									
@@ -125,7 +124,7 @@
 									<Input id="referencia" value="{model>/ReferenciaExterna}"/>
 									
 									<Label text="Observações" labelFor="obs"/>
-									<TextArea id="obs" value="{model>/Observacoes}" rows="6" cols="54"/>
+									<TextArea id="obs" value="{model>/Observacoes}" rows="6"/>
 									
 									<Label text="Encerrado" labelFor="encerrado"/>
 									<CheckBox id="encerrado" selected="{model>/Encerrado}"/>
@@ -137,8 +136,8 @@
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://save" id="salvar" text="Salvar" press="onSalvar"/>
-						<Button icon="sap-icon://reset" id="voltar" text="Cancelar" press="onVoltar"/>
+						<Button text="Salvar" press="onSalvar" type="Accept"/>
+   						<Button text="Fechar" press="onVoltar" type="Reject"/>
 					</Toolbar>
 				</footer>
 			</Page>

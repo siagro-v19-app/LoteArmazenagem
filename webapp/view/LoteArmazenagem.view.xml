@@ -8,116 +8,115 @@
 	width="100%">
 	<App id="app">
 		<pages>
-			<Page showHeader="false">
+			<Page showHeader="false" class="sapUiContentPadding" enableScrolling="false">
 				<content>
-					<VBox class="sapUiSmallMargin">
-						<Panel headerText="Lote de Armazenagem">
-							<t:Table id="tableLote"
-								rows="{path: '/LoteArmazenagems',
-										parameters: {
-											expand: 'LocalEstoqueDetails,
-											ParceiroNegocioDetails,
-											ProdutoDetails,
-											TabelaTarifaDetails'
-										}
-									}"
-								selectionMode="Single"
-								selectionBehavior="Row"
-								enableSelectAll="false"
-								editable="true"
-								visibleRowCountMode="Interactive"
-								enableBusyIndicator="true"
-								alternateRowColors="true"
-								enableCustomFilter="false">
-								<t:toolbar>
-									<Toolbar>
-										<Title text="Lista de Lotes"/> 
-									</Toolbar> 
-								</t:toolbar>
-								<t:columns>
-									<t:Column filterProperty="Descricao" sortProperty="Descricao" width="150px">
-										<Label text="Descrição"/>
-										<t:template>
-											<Text text="{Descricao}" wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="LocalEstoqueDetails/Descricao"
-										sortProperty="LocalEstoqueDetails/Descricao" width="300px">
-										<Label text="Armazém"/>
-										<t:template>
-											<Text text="{LocalEstoqueDetails/Descricao}" wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="ParceiroNegocioDetails/RazaoSocial"
-										sortProperty="ParceiroNegocioDetails/RazaoSocial" width="300px">
-										<Label text="Cliente"/>
-										<t:template>
-											<Text text="{ParceiroNegocioDetails/RazaoSocial}" wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="TabelaTarifaDetails/Descricao"
-										sortProperty="TabelaTarifaDetails/Descricao" width="150px">
-										<Label text="Tabela"/>
-										<t:template>
-											<Text text="{TabelaTarifaDetails/Descricao}" wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="Data" sortProperty="Data" width="100px">
-										<Label text="Data"/>
-										<t:template>
-											<Text text="{
-												path : 'Data',
-												type : 'sap.ui.model.type.Date',
-												formatOptions: {
-													style : 'short'
-												}}"
-												wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="ProdutoDetails/Descricao"
-										sortProperty="ProdutoDetails/Descricao" width="200px">
-										<Label text="Produto"/>
-										<t:template>
-											<Text text="{ProdutoDetails/Descricao}" wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="Saldo" sortProperty="Saldo" width="100px">
-										<Label text="Saldo"/>
-										<t:template>
-											<Text text="{path: 'Saldo', 
-												type: 'sap.ui.model.odata.type.Single',
-			                            		formatOptions:{
-			                            			decimals: 2,
-			                                		decimalSeparator: ','
-			                            		}}"
-			                            		wrapping="false"/>
-										</t:template>
-									</t:Column>
-									<t:Column filterProperty="Encerrado" sortProperty="Encerrado" width="150px">
-										<Label text="Encerrado"/>
-										<t:template>
-											<CheckBox selected="{Encerrado}" editable="false"/>
-										</t:template>
-									</t:Column>
-								</t:columns>
-								<t:footer>
-									<Toolbar>
-										<Button icon="sap-icon://refresh" press="onRefresh"/>
-										<ToolbarSpacer/>
-										<Button icon="sap-icon://filter"/>
-										<Button icon="sap-icon://clear-filter"/>
-									</Toolbar>
-								</t:footer>
-							</t:Table>
-						</Panel>
-					</VBox>
+					<t:Table id="tableLote"
+						rows="{path: '/LoteArmazenagems',
+								sorter: {
+									path: 'Descricao'
+								},
+								parameters: {
+									expand: 'LocalEstoqueDetails,
+									ParceiroNegocioDetails,
+									ProdutoDetails,
+									TabelaTarifaDetails'
+								}
+							}"
+						selectionMode="Single"
+						selectionBehavior="Row"
+						class="sapUiSizeCondensed"
+						visibleRowCountMode="Auto"
+						enableBusyIndicator="true"
+						alternateRowColors="true">
+						<t:toolbar>
+							<Toolbar>
+								<Title text="Lista de Lotes"/>
+								<ToolbarSpacer/>
+								<SearchField placeholder="Pesquisar lote..." width="30%" search="filtraLote"/>
+							</Toolbar> 
+						</t:toolbar>
+						<t:columns>
+							<t:Column id="columnEmpresa" filtered="true" width="100px" >
+								<Label text="Empresa" wrapping="true"/>
+								<t:template>
+									<Text text="{Empresa}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column id="columnDescricao" filterProperty="Descricao" sortProperty="Descricao" width="150px">
+								<Label text="Descrição"/>
+								<t:template>
+									<Text text="{Descricao}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="LocalEstoqueDetails/Descricao"
+								sortProperty="LocalEstoqueDetails/Descricao" width="300px">
+								<Label text="Armazém"/>
+								<t:template>
+									<Text text="{LocalEstoqueDetails/Descricao}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="ParceiroNegocioDetails/RazaoSocial"
+								sortProperty="ParceiroNegocioDetails/RazaoSocial" width="300px">
+								<Label text="Cliente"/>
+								<t:template>
+									<Text text="{ParceiroNegocioDetails/RazaoSocial}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="TabelaTarifaDetails/Descricao"
+								sortProperty="TabelaTarifaDetails/Descricao" width="150px">
+								<Label text="Tabela"/>
+								<t:template>
+									<Text text="{TabelaTarifaDetails/Descricao}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="Data" sortProperty="Data" width="100px">
+								<Label text="Data"/>
+								<t:template>
+									<Text text="{
+										path : 'Data',
+										type : 'sap.ui.model.type.Date',
+										formatOptions: {
+											style : 'short'
+										}}"
+										wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="ProdutoDetails/Descricao"
+								sortProperty="ProdutoDetails/Descricao" width="200px">
+								<Label text="Produto"/>
+								<t:template>
+									<Text text="{ProdutoDetails/Descricao}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="Saldo" sortProperty="Saldo" width="100px">
+								<Label text="Saldo"/>
+								<t:template>
+									<Text text="{path: 'Saldo', 
+										type: 'sap.ui.model.odata.type.Single',
+	                            		formatOptions:{
+	                            			decimals: 2,
+	                                		decimalSeparator: ','
+	                            		}}"
+	                            		wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column filterProperty="Encerrado" sortProperty="Encerrado" width="150px">
+								<Label text="Encerrado"/>
+								<t:template>
+									<CheckBox selected="{Encerrado}" editable="false"/>
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
 				</content>
 				<footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://add" text="Incluir novo" press="onIncluir"/>
-						<Button icon="sap-icon://edit" text="Editar" press="onEditar"/>
-						<Button icon="sap-icon://delete" text="Remover" press="onRemover"/>
+						<Button id="incluir" text="Incluir novo" press="onIncluir" type="Emphasized"/>
+						<Button id="editar" text="Editar" press="onEditar"/>
+						<Button id="remover" text="Remover" press="onRemover"/>
+						<ToolbarSeparator/>
+						<Button icon="sap-icon://refresh" press="onRefresh"/>
 					</Toolbar>
 				</footer>
 			</Page>

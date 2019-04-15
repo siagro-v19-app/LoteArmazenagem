@@ -71,6 +71,11 @@ sap.ui.define([
 			this._operacao = oParam.operacao;
 			this._sPath = oParam.sPath;
 			
+			this.getView().byId("armazem").setValue(null);
+			this.getView().byId("cliente").setValue(null);
+			this.getView().byId("tabela").setValue(null);
+			this.getView().byId("produto").setValue(null);
+			
 			if (this._operacao === "incluir"){
 				
 				oViewModel.setData({
