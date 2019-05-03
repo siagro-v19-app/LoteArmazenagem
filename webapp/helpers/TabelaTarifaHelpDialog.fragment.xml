@@ -1,17 +1,79 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<SelectDialog
+	<TableSelectDialog
 		title="Tabela de Tarifa"
 		class="sapUiPopupWithPadding"
 		items="{path: '/TabelaTarifas', sorter: {path: 'Descricao'}}"
 		search="_handleValueHelpSearch"
 		confirm="_handleValueHelpClose"
 		cancel="_handleValueHelpClose">
-		<StandardListItem
-			iconDensityAware="false"
-			iconInset="false"
-			title="{Descricao}"
-			description="{Id}" />
-	</SelectDialog>
+		<ColumnListItem>
+			<cells>
+				<ObjectNumber
+					number="{Id}"/>
+				<ObjectIdentifier
+					title="{Descricao}"/>
+				<ObjectIdentifier
+					title="{path: 'TaxaArmazenagem', type: 'sap.ui.model.odata.type.Single', formatOptions: {decimals: 2, decimalSeparator: ','}}"/>
+				<ObjectIdentifier
+					title="{path: 'VencimentoArmazenagem', type: 'sap.ui.model.odata.type.Single', formatOptions: {decimals: 2, decimalSeparator: ','}}"/>
+				<ObjectIdentifier
+					title="{path: 'TaxaExpurgo', type: 'sap.ui.model.odata.type.Single', formatOptions: {decimals: 2, decimalSeparator: ','}}"/>
+				<ObjectIdentifier
+					title="{path: 'VencimentoExpurgo', type: 'sap.ui.model.odata.type.Single', formatOptions: {decimals: 2, decimalSeparator: ','}}"/>
+				<ObjectIdentifier
+					title="{Carencia}"/>
+				<ObjectIdentifier
+					title="{
+						path : 'VigenteAte',
+						type : 'sap.ui.model.type.Date',
+						formatOptions: {
+							style : 'short'
+						}}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="4em">
+				<header>
+					<Text text="ID"/>
+				</header>
+			</Column>
+			<Column width="12em">
+				<header>
+					<Text text="Descrição"/>
+				</header>
+			</Column>
+			<Column width="8em">
+				<header>
+					<Text text="Taxa de Armazenagem" wrapping="true"/>
+				</header>
+			</Column>
+			<Column width="8em">
+				<header>
+					<Text text="Vencimento de Armazenagem" wrapping="true"/>
+				</header>
+			</Column>
+			<Column width="8em">
+				<header>
+					<Text text="Taxa de Expurgo" wrapping="true"/>
+				</header>
+			</Column>
+			<Column width="8em">
+				<header>
+					<Text text="Vencimento de Expurgo" wrapping="true"/>
+				</header>
+			</Column>
+			<Column width="6em">
+				<header>
+					<Text text="Carência"/>
+				</header>
+			</Column>
+			<Column width="6em">
+				<header>
+					<Text text="Vigente Até"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
 </core:FragmentDefinition>
